@@ -23,7 +23,7 @@ API calls for current price (and sometimes other trade information) for the foll
 * [Coinbase](www.coinbase.com)
 * [CEX](www.cex.io)
 * [Zebpay](www.zebpay.com)
-* [Koinex](https://koinex.in) (work in progress)
+* [Koinex](https://koinex.in) (slightly unstable)
 
 Currently only supports BTC, ETH, BCH and LTC (Except Zebpay which only supports BTC).
 
@@ -38,6 +38,7 @@ Example:
 ```
 
 If no ticker is provided, btc is taken as default.
+Some markets such as Zebpay and Koinex display all their data in a single call without any ticker.
 
 You can also check the current INR-USD rates using
 ```
