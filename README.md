@@ -50,7 +50,6 @@ This data is fetched using [Fixer](http://fixer.io/).
 ## TODO
 
 * Building the Arbitrage calculator.
-* Adding ETH, BCH, LTC on client side (APIs ready).
 * Auto update prices every few seconds.
 * Add more exchanges
 
