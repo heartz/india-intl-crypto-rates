@@ -22,6 +22,9 @@ class Bitcoin extends React.Component {
       cex_usd: {
         last: 0,
       },
+      koinex_inr: {
+        Last: 0
+      },
       coinbase_usd: {
         high: 0,
         low: 0
@@ -41,6 +44,7 @@ class Bitcoin extends React.Component {
     this.getCoinbaseRates();
     this.getCexRates();
     this.getZebpayRates();
+    this.getKoinexRates();
   }
 
   getUsdRate() {
@@ -97,7 +101,6 @@ class Bitcoin extends React.Component {
     })
   }
 
-
   getZebpayRates() {
     axios.get('/api/zebpay')
     .then((response) => {
@@ -105,6 +108,17 @@ class Bitcoin extends React.Component {
         zebpay_inr: {
           high: response.data.buy,
           low: response.data.sell
+        }
+      });
+    })
+  }
+
+  getKoinexRates() {
+    axios.get('/api/koinex')
+    .then((response) => {
+      this.setState({
+        koinex_inr: {
+          last : JSON.parse(response.data).prices.BTC
         }
       });
     })
@@ -169,6 +183,7 @@ class Bitcoin extends React.Component {
             {this.getTableRows("Bittrex", this.state.bittrex_usd)}
             {this.getTableRows("Bitfinex", this.state.bitfinex_usd)}
             {this.getTableRows("CEX", this.state.cex_usd)}
+            {this.getTableRows("Koinex", this.state.koinex_inr, true)}
             {this.getTableRows("Coinbase", this.state.coinbase_usd)}
             {this.getTableRows("Zebpay", this.state.zebpay_inr, true)}
           </TableBody>

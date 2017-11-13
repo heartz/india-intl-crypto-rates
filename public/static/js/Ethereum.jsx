@@ -22,6 +22,9 @@ class Ethereum extends React.Component {
       cex_usd: {
         last: 0,
       },
+      koinex_inr: {
+        last: 0,
+      },
       coinbase_usd: {
         high: 0,
         low: 0
@@ -36,6 +39,7 @@ class Ethereum extends React.Component {
     this.getBitfinexRates();
     this.getCoinbaseRates();
     this.getCexRates();
+    this.getKoinexRates();
   }
 
   getUsdRate() {
@@ -92,6 +96,16 @@ class Ethereum extends React.Component {
     })
   }
 
+  getKoinexRates() {
+    axios.get('/api/koinex')
+    .then((response) => {
+      this.setState({
+        koinex_inr: {
+          last : JSON.parse(response.data).prices.ETH
+        }
+      });
+    })
+  }
 
   getINRrates(market_rates, inr_to_usd=false) {
     let temp_rates = {};
@@ -152,6 +166,7 @@ class Ethereum extends React.Component {
             {this.getTableRows("Bittrex", this.state.bittrex_usd)}
             {this.getTableRows("Bitfinex", this.state.bitfinex_usd)}
             {this.getTableRows("CEX", this.state.cex_usd)}
+            {this.getTableRows("Koinex", this.state.koinex_inr, true)}
             {this.getTableRows("Coinbase", this.state.coinbase_usd)}
           </TableBody>
         </Table>

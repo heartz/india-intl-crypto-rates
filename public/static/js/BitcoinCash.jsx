@@ -22,6 +22,9 @@ class BitcoinCash extends React.Component {
       cex_usd: {
         last: 0,
       },
+      koinex_inr: {
+        last: 0,
+      },
       coinbase_usd: {
         high: 0,
         low: 0
@@ -35,6 +38,7 @@ class BitcoinCash extends React.Component {
     this.getBittrexRates();
     this.getBitfinexRates();
     this.getCexRates();
+    this.getKoinexRates();
   }
 
   getUsdRate() {
@@ -79,6 +83,16 @@ class BitcoinCash extends React.Component {
     })
   }
 
+  getKoinexRates() {
+    axios.get('/api/koinex')
+    .then((response) => {
+      this.setState({
+        koinex_inr: {
+          last : JSON.parse(response.data).prices.BCH
+        }
+      });
+    })
+  }
 
   getINRrates(market_rates, inr_to_usd=false) {
     let temp_rates = {};
@@ -139,6 +153,7 @@ class BitcoinCash extends React.Component {
             {this.getTableRows("Bittrex", this.state.bittrex_usd)}
             {this.getTableRows("Bitfinex", this.state.bitfinex_usd)}
             {this.getTableRows("CEX", this.state.cex_usd)}
+            {this.getTableRows("Koinex", this.state.koinex_inr, true)}
           </TableBody>
         </Table>
       </div>

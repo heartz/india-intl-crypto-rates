@@ -25,6 +25,7 @@
     "babel-preset-react": "^6.24.1",
     "coinbase": "^2.0.6",
     "css-loader": "^0.28.0",
+    "curlrequest": "^1.0.1",
     "express": "^4.16.2",
     "express-rest": "^1.0.4",
     "material-ui": "^0.17.4",
