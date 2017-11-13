@@ -19,6 +19,7 @@ API calls for current price (and sometimes other trade information) for the foll
 * [Bittrex](www.bittrex.com)
 * [Bitfinex](www.bitfinex.com)
 * [Coinbase](www.coinbase.com)
+* [CEX](www.cex.io)
 * [Zebpay](www.zebpay.com)
 * [Koinex](https://koinex.in) (work in progress)
 
@@ -43,3 +44,13 @@ You can also check the current INR-USD rates using
 
 This data is fetched using [Fixer](http://fixer.io/).
 
+
+## TODO
+
+* Building the Arbitrage calculator.
+* Adding ETH, BCH, LTC on client side (APIs ready).
+* Auto update prices every few seconds.
+* Add more exchanges
+
+
+Contact: ranadipheartz@gmail.com | Donations: ETH 0x6e457934449fCd3F8cC7A630013c5FC6A29f26A6

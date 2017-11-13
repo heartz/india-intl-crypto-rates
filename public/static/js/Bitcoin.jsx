@@ -15,24 +15,41 @@ class Bitcoin extends React.Component {
     this.state = {
       bittrex_usd: {
         last: 0,
-        high: 0,
-        low: 0
       },
       bitfinex_usd: {
         last: 0,
+      },
+      cex_usd: {
+        last: 0,
+      },
+      coinbase_usd: {
         high: 0,
         low: 0
       },
-      coinbase_usd: 0,
-      usd: 0,
-      zebpay: 0
+      zebpay_inr: {
+        high: 0,
+        low: 0
+      },
+      usd_inr: 0
     }
   }
 
   componentDidMount() {
+    this.getUsdRate()
     this.getBittrexRates();
     this.getBitfinexRates();
     this.getCoinbaseRates();
+    this.getCexRates();
+    this.getZebpayRates();
+  }
+
+  getUsdRate(){
+    axios.get('/api/usd_rate')
+    .then((response) => {
+      this.setState({
+        usd_inr: response.data
+      });
+    }) 
   }
 
   getBittrexRates() {
@@ -41,8 +58,6 @@ class Bitcoin extends React.Component {
       this.setState({
         bittrex_usd: {
           last: response.data.Last,
-          high: response.data.High,
-          low: response.data.Low
         }
       });
     })
@@ -54,8 +69,17 @@ class Bitcoin extends React.Component {
       this.setState({
         bitfinex_usd: {
           last: response.data.last_price,
-          high: response.data.high,
-          low: response.data.low
+        }
+      });
+    })
+  }
+
+  getCexRates() {
+    axios.get('/api/cex/btc')
+    .then((response) => {
+      this.setState({
+        cex_usd: {
+          last: response.data.last,
         }
       });
     })
@@ -65,18 +89,62 @@ class Bitcoin extends React.Component {
     axios.get('/api/coinbase/btc')
     .then((response) => {
       this.setState({
-        coinbase_usd: response.data.data.amount
+        coinbase_usd: {
+          high: response.data.high,
+          low: response.data.low
+        }
       });
     })
   }
 
-  getTableRows(market, last, high='---', low='---') {
-    var table_row = (
+
+  getZebpayRates() {
+    axios.get('/api/zebpay')
+    .then((response) => {
+      this.setState({
+        zebpay_inr: {
+          high: response.data.buy,
+          low: response.data.sell
+        }
+      });
+    })
+  }
+
+  getINRrates(market_rates, inr_to_usd=false) {
+    let temp_rates = {};
+    let display_rates = {};
+    if(market_rates.last) {
+      if(inr_to_usd) {
+        temp_rates['last'] = (parseFloat(market_rates.last) / this.state.usd_inr).toFixed(2);
+        display_rates['last'] = `${market_rates.last} (${temp_rates.last})`;
+      } else {
+        temp_rates['last'] = (parseFloat(market_rates.last) * this.state.usd_inr).toFixed(2);
+        display_rates['last'] = `${temp_rates.last} (${market_rates.last})`;
+      }
+    } else {
+      if(inr_to_usd) {
+        temp_rates['high'] = (parseFloat(market_rates.high) / this.state.usd_inr).toFixed(2);
+        temp_rates['low'] = (parseFloat(market_rates.low) / this.state.usd_inr).toFixed(2);
+        display_rates['high'] = `${market_rates.high} (${temp_rates.high})`;
+        display_rates['low'] = `${market_rates.low} (${temp_rates.low}})`;
+      } else {
+        temp_rates['high'] = (parseFloat(market_rates.high) * this.state.usd_inr).toFixed(2);
+        temp_rates['low'] = (parseFloat(market_rates.low) * this.state.usd_inr).toFixed(2);
+        display_rates['high'] = `${temp_rates.high} (${market_rates.high})`;
+        display_rates['low'] = `${temp_rates.low} (${market_rates.low})`; 
+      }
+    }
+    return display_rates;
+  }
+  
+  getTableRows(market, market_rates, inr_to_usd=false) {
+    let display_rates = this.getINRrates(market_rates, inr_to_usd);
+    let table_row = (
       <TableRow>
         <TableRowColumn>{market}</TableRowColumn>
-        <TableRowColumn>{last}</TableRowColumn>
-        <TableRowColumn>{high}</TableRowColumn>
-        <TableRowColumn>{low}</TableRowColumn>
+        <TableRowColumn>{display_rates.last}</TableRowColumn>
+        <TableRowColumn>{display_rates.high}</TableRowColumn>
+        <TableRowColumn>{display_rates.low}</TableRowColumn>
       </TableRow>);
     return table_row;
   }
@@ -84,22 +152,25 @@ class Bitcoin extends React.Component {
   render() {
     let bittrex_rates = this.state.bittrex_usd;
     let bitfinex_rates = this.state.bitfinex_usd;
+
     return (
       <div>
-        Bitcoin Rates
+        <h1>Bitcoin Rates</h1>
         <Table selectable={false}>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn>Market</TableHeaderColumn>
-              <TableHeaderColumn>Last</TableHeaderColumn>
-              <TableHeaderColumn>High</TableHeaderColumn>
-              <TableHeaderColumn>Low</TableHeaderColumn>
+              <TableHeaderColumn>Current price</TableHeaderColumn>
+              <TableHeaderColumn>Buy</TableHeaderColumn>
+              <TableHeaderColumn>Sell</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {this.getTableRows("Bittrex", bittrex_rates.last, bittrex_rates.high, bittrex_rates.low)}
-            {this.getTableRows("Bitfinex", bitfinex_rates.last, bitfinex_rates.high, bitfinex_rates.low)}
+            {this.getTableRows("Bittrex", this.state.bittrex_usd)}
+            {this.getTableRows("Bitfinex", this.state.bitfinex_usd)}
+            {this.getTableRows("CEX", this.state.cex_usd)}
             {this.getTableRows("Coinbase", this.state.coinbase_usd)}
+            {this.getTableRows("Zebpay", this.state.zebpay_inr, true)}
           </TableBody>
         </Table>
       </div>

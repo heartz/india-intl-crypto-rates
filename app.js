@@ -91,13 +91,19 @@ rest.get('/api/bittrex/ltc', function(req, res) {
 });
 
 //API calls for Coinbase
+//TODO: Remove callback hell
 
 rest.get('/api/coinbase', function(req, res) {
   var Client = require('coinbase').Client;
   var client = new Client({'apiKey': 'API KEY',
                            'apiSecret': 'API SECRET'});
-  client.getSpotPrice({'currencyPair': 'BTC-USD'}, function(err,data) {
-    res.ok(data);
+  client.getBuyPrice({'currencyPair': 'BTC-USD'}, function(err, buy) {
+    client.getSellPrice({'currencyPair': 'BTC-USD'}, function(err, sell) {
+      res.ok({
+          'high': buy.data.amount,
+          'low': sell.data.amount
+      });
+    });
   });
 });
 
@@ -105,8 +111,13 @@ rest.get('/api/coinbase/btc', function(req, res) {
   var Client = require('coinbase').Client;
   var client = new Client({'apiKey': 'API KEY',
                            'apiSecret': 'API SECRET'});
-  client.getSpotPrice({'currencyPair': 'BTC-USD'}, function(err,data) {
-    res.ok(data);
+  client.getBuyPrice({'currencyPair': 'BTC-USD'}, function(err, buy) {
+    client.getSellPrice({'currencyPair': 'BTC-USD'}, function(err, sell) {
+      res.ok({
+          'high': buy.data.amount,
+          'low': sell.data.amount
+      });
+    });
   });
 });
 
@@ -119,8 +130,13 @@ rest.get('/api/coinbase/eth', function(req, res) {
   var Client = require('coinbase').Client;
   var client = new Client({'apiKey': 'API KEY',
                            'apiSecret': 'API SECRET'});
-  client.getSpotPrice({'currencyPair': 'ETH-USD'}, function(err,data) {
-    res.ok(data);
+  client.getBuyPrice({'currencyPair': 'ETH-USD'}, function(err, buy) {
+    client.getSellPrice({'currencyPair': 'ETH-USD'}, function(err, sell) {
+      res.ok({
+          'high': buy.data.amount,
+          'low': sell.data.amount
+      });
+    });
   });
 });
 
@@ -128,8 +144,13 @@ rest.get('/api/coinbase/ltc', function(req, res) {
   var Client = require('coinbase').Client;
   var client = new Client({'apiKey': 'API KEY',
                            'apiSecret': 'API SECRET'});
-  client.getSpotPrice({'currencyPair': 'LTC-USD'}, function(err,data) {
-    res.ok(data);
+  client.getBuyPrice({'currencyPair': 'LTC-USD'}, function(err, buy) {
+    client.getSellPrice({'currencyPair': 'LTC-USD'}, function(err, sell) {
+      res.ok({
+          'high': buy.data.amount,
+          'low': sell.data.amount
+      });
+    });
   });
 });
 
@@ -203,3 +224,63 @@ rest.get('/api/bitfinex/ltc',function(req, res){
   });
 });
 
+// API calls for CEX
+
+rest.get('/api/cex',function(req, res){
+  var url = "https://cex.io/api/ticker/BTC/USD";
+  request({
+    url: url,
+    json: true
+  },
+  function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.ok(body);
+    }
+  });
+});
+
+rest.get('/api/cex/btc',function(req, res){
+  var url = "https://cex.io/api/ticker/BTC/USD";
+  request({
+    url: url,
+    json: true
+  },
+  function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.ok(body);
+    }
+  });
+});
+
+
+rest.get('/api/cex/eth',function(req, res){
+  var url = "https://cex.io/api/ticker/BTC/USD";
+  request({
+    url: url,
+    json: true
+  },
+  function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.ok(body);
+    }
+  });
+});
+
+
+rest.get('/api/cex/bch',function(req, res){
+  var url = "https://cex.io/api/ticker/BCH/USD";
+  request({
+    url: url,
+    json: true
+  },
+  function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.ok(body);
+    }
+  });
+});
+
+
+rest.get('/api/bitfinex/ltc',function(req, res){
+  res.ok("Coinbase does not support Bitcoin cash");
+});

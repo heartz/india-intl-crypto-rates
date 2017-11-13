@@ -4,6 +4,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 import Bitcoin from './Bitcoin.jsx';
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
 
 class App extends React.Component {
   constructor(props){
@@ -14,8 +16,9 @@ class App extends React.Component {
     return (
       <MuiThemeProvider  muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
-          This website is in progress.
+          <Header/>
           <Bitcoin/>
+          <Footer/>
         </div>
       </MuiThemeProvider>
     );
