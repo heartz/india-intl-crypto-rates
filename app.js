@@ -254,7 +254,7 @@ rest.get('/api/cex/btc',function(req, res){
 
 
 rest.get('/api/cex/eth',function(req, res){
-  var url = "https://cex.io/api/ticker/BTC/USD";
+  var url = "https://cex.io/api/ticker/ETH/USD";
   request({
     url: url,
     json: true
@@ -281,6 +281,6 @@ rest.get('/api/cex/bch',function(req, res){
 });
 
 
-rest.get('/api/bitfinex/ltc',function(req, res){
-  res.ok("Coinbase does not support Bitcoin cash");
+rest.get('/api/cex/ltc',function(req, res){
+  res.ok("CEX does not support Litecoin");
 });

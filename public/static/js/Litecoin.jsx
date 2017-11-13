@@ -9,7 +9,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-class Bitcoin extends React.Component {
+class Litecoin extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -26,10 +26,6 @@ class Bitcoin extends React.Component {
         high: 0,
         low: 0
       },
-      zebpay_inr: {
-        high: 0,
-        low: 0
-      },
       usd_inr: 0
     }
   }
@@ -39,8 +35,6 @@ class Bitcoin extends React.Component {
     this.getBittrexRates();
     this.getBitfinexRates();
     this.getCoinbaseRates();
-    this.getCexRates();
-    this.getZebpayRates();
   }
 
   getUsdRate() {
@@ -53,7 +47,7 @@ class Bitcoin extends React.Component {
   }
 
   getBittrexRates() {
-    axios.get('/api/bittrex/btc')
+    axios.get('/api/bittrex/ltc')
     .then((response) => {
       this.setState({
         bittrex_usd: {
@@ -64,7 +58,7 @@ class Bitcoin extends React.Component {
   }
 
   getBitfinexRates() {
-    axios.get('/api/bitfinex/btc')
+    axios.get('/api/bitfinex/ltc')
     .then((response) => {
       this.setState({
         bitfinex_usd: {
@@ -74,19 +68,9 @@ class Bitcoin extends React.Component {
     })
   }
 
-  getCexRates() {
-    axios.get('/api/cex/btc')
-    .then((response) => {
-      this.setState({
-        cex_usd: {
-          last: response.data.last,
-        }
-      });
-    })
-  }
 
   getCoinbaseRates() {
-    axios.get('/api/coinbase/btc')
+    axios.get('/api/coinbase/ltc')
     .then((response) => {
       this.setState({
         coinbase_usd: {
@@ -97,18 +81,6 @@ class Bitcoin extends React.Component {
     })
   }
 
-
-  getZebpayRates() {
-    axios.get('/api/zebpay')
-    .then((response) => {
-      this.setState({
-        zebpay_inr: {
-          high: response.data.buy,
-          low: response.data.sell
-        }
-      });
-    })
-  }
 
   getINRrates(market_rates, inr_to_usd=false) {
     let temp_rates = {};
@@ -155,7 +127,7 @@ class Bitcoin extends React.Component {
 
     return (
       <div>
-        <h1>Bitcoin Rates</h1>
+        <h1>Litecoin Rates</h1>
         <Table selectable={false}>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
@@ -168,9 +140,7 @@ class Bitcoin extends React.Component {
           <TableBody displayRowCheckbox={false}>
             {this.getTableRows("Bittrex", this.state.bittrex_usd)}
             {this.getTableRows("Bitfinex", this.state.bitfinex_usd)}
-            {this.getTableRows("CEX", this.state.cex_usd)}
             {this.getTableRows("Coinbase", this.state.coinbase_usd)}
-            {this.getTableRows("Zebpay", this.state.zebpay_inr, true)}
           </TableBody>
         </Table>
       </div>
@@ -178,4 +148,4 @@ class Bitcoin extends React.Component {
   }
 }
 
-export default Bitcoin;
+export default Litecoin;

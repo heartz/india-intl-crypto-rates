@@ -1,6 +1,8 @@
 # india-intl-crypto-rates
 A simple page to get and compare rates between Indian markets and International exchanges.
 
+Try out the [Live demo](https://moonlit-academy-178514.appspot.com/)!
+
 ## Starting the server
 
 ```

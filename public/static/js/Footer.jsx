@@ -6,9 +6,9 @@ class Footer extends React.Component {
     super(props);
     this.style = {
       progressBar: {
-        position: 'absolute',
         bottom: 0,
         right: 0,
+        marginTop: '100px',
         textAlign: 'center',
         border: 0
       }
