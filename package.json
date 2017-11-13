@@ -1,0 +1,26 @@
+{
+  "name": "india-intl-crypto-rates",
+  "version": "1.0.0",
+  "description": "A simple page to compare rates between Indian markets and International exchanges",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heartz/india-intl-crypto-rates.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heartz/india-intl-crypto-rates/issues"
+  },
+  "homepage": "https://github.com/heartz/india-intl-crypto-rates#readme",
+  "dependencies": {
+    "coinbase": "^2.0.6",
+    "express": "^4.16.2",
+    "express-rest": "^1.0.4",
+    "node-bittrex-api": "^0.7.7"
+  }
+}
