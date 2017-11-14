@@ -53,6 +53,18 @@ This data is fetched using [Fixer](http://fixer.io/).
 * Building the Arbitrage calculator.
 * Auto update prices every few seconds.
 * Add more exchanges
+* Display price according to [CoinMarketCap](https://coinmarketcap.com/) at the top.
+* Show price difference from CMC for each.
+* Sort by price.
+* Sort by premium being paid (in %) for each market.(Suggesting best coin to buy if all at premium).
+* Caching the market data for 10 seconds instead of fetching from market on each page load.(Reduce latency).
 
 
-Contact: ranadipheartz@gmail.com | Donations: ETH 0x6e457934449fCd3F8cC7A630013c5FC6A29f26A6
+
+
+
+Contact: ranadipheartz@gmail.com
+Donations:
+ETH: 0x6e457934449fCd3F8cC7A630013c5FC6A29f26A6
+BTC: 1QBTqvzfQjciKcdt6AXsESGEySxf67E3T4
+NEO: Abj6qZSyM7HcvY9vukTykfoyu7E1GPLKrf
