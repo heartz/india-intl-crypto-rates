@@ -63,8 +63,8 @@ This data is fetched using [Fixer](http://fixer.io/).
 
 
 
-Contact: ranadipheartz@gmail.com
-Donations:
-ETH: 0x6e457934449fCd3F8cC7A630013c5FC6A29f26A6
-BTC: 1QBTqvzfQjciKcdt6AXsESGEySxf67E3T4
+Contact: ranadipheartz@gmail.com   
+Donations:  
+ETH: 0x6e457934449fCd3F8cC7A630013c5FC6A29f26A6   
+BTC: 1QBTqvzfQjciKcdt6AXsESGEySxf67E3T4  
 NEO: Abj6qZSyM7HcvY9vukTykfoyu7E1GPLKrf
