@@ -27,6 +27,19 @@ API calls for current price (and sometimes other trade information) for the foll
 
 Currently only supports BTC, ETH, BCH and LTC (Except Zebpay which only supports BTC).
 
+#### Price Only API calls
+
+These APIs can be used to fetch the prices of the Cryptocurrencies from each of the markets.
+
+Usage: ```/prices/<market>``` to get the price for the specific market.  
+To get the price for all the markets listed above use ```/prices/all```.
+
+NOTE: This prices are NOT REAL TIME. The values are refreshed every 15 seconds.
+
+#### Direct Market API calls
+
+These API calls are the actual API calls from the markets, instead of having to write your code for each of these markets and contacting them, you can use these. 
+
 To use the API calls:
 ```
 /api/<market>/<ticker>
@@ -58,10 +71,6 @@ This data is fetched using [Fixer](http://fixer.io/).
 * Sort by price.
 * Sort by premium being paid (in %) for each market.(Suggesting best coin to buy if all at premium).
 * Caching the market data for 10 seconds instead of fetching from market on each page load.(Reduce latency).
-
-
-
-
 
 Contact: ranadipheartz@gmail.com   
 Donations:  
